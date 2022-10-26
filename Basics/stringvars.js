@@ -1,3 +1,5 @@
+//---- String Data Type ----
+
 //Declate two string variables
 //let allows us to create and name the variables
 let fname = "John";
