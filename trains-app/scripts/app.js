@@ -53,24 +53,30 @@ document.querySelector("#addtrain").addEventListener("click", function (e) {
   console.log(`'Add train was clicked.`);
 });
 
-//Get the "timetable" button and install a click event handler
-document.querySelector("#timetable").addEventListener("click", function (e) {
-  console.log(`timetable button was clicked.`);
-});
+//-- ONLY ONE OF THE FOLLOWING 2 EVENTS USEFUL ---
+// change event - is fired when users enters all the text and hits ENTER
+// input event -  provide input every time user adds/removes text from the input type
+//
+// input event useful for live search results for example
+//
 
-//Get all the paras with "error" as a class and modify their color
-//should change only 2 paras instead of 3.
-//NOTE: querySelectorAll() and . prefix in front of the classname
-const errorPs = document.querySelectorAll(".error");
-errorPs.forEach(function (errorP) {
-  console.log(errorP);
-  errorP.style.color = "red";
+//Get the "Search" input and install a 'change' event handler
+//e.target.value is the content of the input textfield
+// document.querySelector("#search").addEventListener("change", function (e) {
+//   console.log(e.target.value);
+// });
+
+//Get the "Search" input and install a 'input' event handler
+//e.target.value is the content of the input textfield
+document.querySelector("#search").addEventListener("input", function (e) {
+  console.log(e.target.value);
 });
 
 //Exercise
-//  Inside the notes app
-//   - In index.html - make sure to have 2 buttons. Each with a unique id
-//        say - "Add Note", "Remove all notes"
-//   - In scripts\app.js,
-//        get both the buttons, add click event handlers and console log
-//        an appropriate message
+//  Inside notes-app
+//   1. Clean up HTML, remove <p>s
+//   2. Add an input of type text, add placeholder and id attributes
+//  Inside scripts\app.js -
+//   1. Get the <input> control using its id
+//   2. Install 2 handlers - change and input
+//   3. Verify the behavior inside both the event handlers
