@@ -47,17 +47,30 @@ trains.forEach(function (train) {
   bodyEl.appendChild(pEl);
 });
 
-//Get the firt Button <add train>
-addButtonEl = document.querySelector("button");
-addButtonEl.addEventListener("click", function (e) {
-  console.log(e.target);
+//Get the "add train" button with it's id and install a click event handler
+//elements with id have a # prefix
+document.querySelector("#addtrain").addEventListener("click", function (e) {
+  console.log(`'Add train was clicked.`);
+});
+
+//Get the "timetable" button and install a click event handler
+document.querySelector("#timetable").addEventListener("click", function (e) {
+  console.log(`timetable button was clicked.`);
+});
+
+//Get all the paras with "error" as a class and modify their color
+//should change only 2 paras instead of 3.
+//NOTE: querySelectorAll() and . prefix in front of the classname
+const errorPs = document.querySelectorAll(".error");
+errorPs.forEach(function (errorP) {
+  console.log(errorP);
+  errorP.style.color = "red";
 });
 
 //Exercise
-//   Inside the notes app
-//   1. Inside index.html, add a new <button> element - "Add Note"
-//   2. Inside app.js,
-//        - locate the button
-//        - register a click handler
-//        - inside the click handler, console log the e object
-//        - also look at e.target
+//  Inside the notes app
+//   - In index.html - make sure to have 2 buttons. Each with a unique id
+//        say - "Add Note", "Remove all notes"
+//   - In scripts\app.js,
+//        get both the buttons, add click event handlers and console log
+//        an appropriate message
