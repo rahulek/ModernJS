@@ -47,13 +47,17 @@ trains.forEach(function (train) {
   bodyEl.appendChild(pEl);
 });
 
+//Get the firt Button <add train>
+addButtonEl = document.querySelector("button");
+addButtonEl.addEventListener("click", function (e) {
+  console.log(e.target);
+});
+
 //Exercise
-//  Notes-app
-//  Clean-up index.html, keep <h1>, <h2>, <h3>
-//  In app.js ->
-//     remove all code
-//     Add a static notes array. Each note object { title, body }
-//     Create 5 notes inside the array
-//     Write a code
-//        - sets H3 element to say - "NNN notes to take care of!"
-//        - insert all the notes into DOM. Create one <p> for every note
+//   Inside the notes app
+//   1. Inside index.html, add a new <button> element - "Add Note"
+//   2. Inside app.js,
+//        - locate the button
+//        - register a click handler
+//        - inside the click handler, console log the e object
+//        - also look at e.target
