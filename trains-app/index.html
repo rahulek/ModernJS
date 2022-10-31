@@ -7,14 +7,42 @@
         <h1>Explore DOM with Railways </h1>
         <h2>DOM is critical but Fun is important too!</h2>
         <h3>How many trains are we tracking here</h3>
-        <label>
-            Search Trains: <input type="text" id="search" placeholder="Enter name or number">
-        </label>
+        <div>
+            <label>
+                Search Trains: <input type="text" id="search" placeholder="Enter name or number">
+            </label>
+        </div>
+        <hr />
+        <form id="trainInfoForm">
+            <h4>Add New Train Information in the form below</h4>
+            <div>
+                <label>
+                    Number: <input type="number" min="1" max="5000" name="trainNumber">
+                </label>
+                <label>
+                    Name: <input type="text" name="trainName">
+                </label>
+            </div>
+            <br />
+            <div>
+                <label>
+                    Source: <input type="text" name="trainSource">
+                </label>
+                <label>
+                    Destination: <input type="text" name="trainDest">
+                </label>
+            </div>
+            <br />
+            <button type="submit">Add Train</button>
+        </form>
+        <br />
+        <hr />
+        <br />
+        <h3>Trains</h3>
         <div id="trainsAnchor">
             <!-- trains inserted here -->
         </div>
-        <!-- button -->
-        <button id="addtrain">Add New Train</button>
+   
         <script src="scripts/app.js"></script>
     </body>
 </html>

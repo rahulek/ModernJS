@@ -38,16 +38,6 @@ const searchInfo = {
   searchText: "",
 };
 
-//Get the H3 element and change it to reflect number of trains
-const h3El = document.querySelector("h3");
-h3El.textContent = `We're currently tracking ${trains.length} trains.`;
-
-//Get the "add train" button with it's id and install a click event handler
-//elements with id have a # prefix
-document.querySelector("#addtrain").addEventListener("click", function (e) {
-  console.log(`'Add train was clicked.`);
-});
-
 //Function to render the trains
 const renderTrains = function (trains) {
   //Get the anchor <div> element
@@ -70,9 +60,6 @@ const renderTrains = function (trains) {
     anchorEl.appendChild(pEl);
   });
 };
-
-//Initial rendering of all the trains
-renderTrains(trains);
 
 const findTrains = function (trains, searchInfo) {
   //Get the search text and filter out our trains that match
@@ -113,6 +100,18 @@ const findTrains = function (trains, searchInfo) {
   }
 };
 
+const addTrain = function (newTrain) {
+  trains.push(newTrain);
+  renderTrains(trains);
+};
+
+//Initial rendering of all the trains
+renderTrains(trains);
+
+//Get the H3 element and change it to reflect number of trains
+const h3El = document.querySelector("h3");
+h3El.textContent = `We're currently tracking ${trains.length} trains.`;
+
 //Get the "Search" input and install a 'input' event handler
 //e.target.value is the content of the input textfield
 document.querySelector("#search").addEventListener("input", function (e) {
@@ -121,10 +120,42 @@ document.querySelector("#search").addEventListener("input", function (e) {
   findTrains(trains, searchInfo);
 });
 
-//Exercise:
-//  In the notes-app
-//    1. Add a search capability
-//    2. Search note's body and title both to see if the text entered by user is included
-//      in the note's body or title. Search the title first and then the body
-//    3. Write a function to render all notes
-//    4. Write a function to implement the find/search functionality
+document
+  .querySelector("#trainInfoForm")
+  .addEventListener("submit", function (e) {
+    //Prevent the default form submission behavior
+    e.preventDefault();
+
+    //Get the form field data
+    const trainNumber = e.target.elements.trainNumber.value;
+    const trainName = e.target.elements.trainName.value;
+    const trainSource = e.target.elements.trainSource.value;
+    const trainDest = e.target.elements.trainDest.value;
+
+    //Create a new train object to insert into our trains db
+    const newTrain = {
+      number: trainNumber,
+      name: trainName,
+      source: trainSource,
+      dest: trainDest,
+      //Following fields with default values
+      daily: true,
+      type: "Superfast",
+      numSeats: 876,
+      numReserved: 0,
+    };
+
+    //now add the new train to our trains DB
+    addTrain(newTrain);
+  });
+
+//Exercise
+//  In the notes app
+//    1. In index.html, create a form that has
+//        a text field for title, a text field for the note body
+//        and a submit/Add note button
+//    2. In scripts\app.js
+//        - Get the form, install the submit handler
+//        - In the submit handler, collect the note data, create a new object
+//          and add it to the notes array
+//        - Make sure to see the new note rendered to the screen
