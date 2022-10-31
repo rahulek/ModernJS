@@ -40,6 +40,9 @@ const searchInfo = {
 
 //Function to render the trains
 const renderTrains = function (trains) {
+  //Get the H3 element and change it to reflect number of trains
+  const h3El = document.querySelector("h3");
+  h3El.textContent = `We're currently tracking ${trains.length} trains.`;
   //Get the anchor <div> element
   const anchorEl = document.querySelector("#trainsAnchor");
 
@@ -54,7 +57,9 @@ const renderTrains = function (trains) {
   trains.forEach(function (train) {
     const trainInfo = `Train ${
       train.number
-    }: ${train.name.toUpperCase()} from ${train.source} to ${train.dest}`;
+    }: ${train.name.toUpperCase()} from ${train.source} to ${train.dest}: ${
+      train.daily ? "Daily" : ""
+    } - ${train.type}`;
     const pEl = document.createElement("p");
     pEl.textContent = trainInfo;
     anchorEl.appendChild(pEl);
@@ -108,10 +113,6 @@ const addTrain = function (newTrain) {
 //Initial rendering of all the trains
 renderTrains(trains);
 
-//Get the H3 element and change it to reflect number of trains
-const h3El = document.querySelector("h3");
-h3El.textContent = `We're currently tracking ${trains.length} trains.`;
-
 //Get the "Search" input and install a 'input' event handler
 //e.target.value is the content of the input textfield
 document.querySelector("#search").addEventListener("input", function (e) {
@@ -131,6 +132,12 @@ document
     const trainName = e.target.elements.trainName.value;
     const trainSource = e.target.elements.trainSource.value;
     const trainDest = e.target.elements.trainDest.value;
+    //Get the daily and type
+    let trainDaily = false;
+    if (e.target.elements.daily.checked) {
+      trainDaily = true;
+    }
+    const trainType = e.target.elements.trainType.value;
 
     //Create a new train object to insert into our trains db
     const newTrain = {
@@ -139,23 +146,30 @@ document
       source: trainSource,
       dest: trainDest,
       //Following fields with default values
-      daily: true,
-      type: "Superfast",
+      daily: trainDaily,
+      type: trainType,
       numSeats: 876,
       numReserved: 0,
     };
+
+    console.log(newTrain);
 
     //now add the new train to our trains DB
     addTrain(newTrain);
   });
 
+//Integrate Daily Checkbox and TrainType Options
+document.querySelector("#daily").addEventListener("change", function (e) {
+  //e.target.checked
+});
+
+document.querySelector("#trainType").addEventListener("change", function (e) {
+  //e.target.value
+});
+
 //Exercise
-//  In the notes app
-//    1. In index.html, create a form that has
-//        a text field for title, a text field for the note body
-//        and a submit/Add note button
-//    2. In scripts\app.js
-//        - Get the form, install the submit handler
-//        - In the submit handler, collect the note data, create a new object
-//          and add it to the notes array
-//        - Make sure to see the new note rendered to the screen
+// Inside the notes-app
+//  1. In index.html, add a checkbox (some dummy text) and a drop down (priority text)
+//  2. In scripts\app.js -
+//      - Access both the checkbox and drop down as separate fields (id -based )
+//      - Access both of them as form fields
