@@ -1,42 +1,23 @@
-//Static array of trains
-//Each train object - { number, name, source, dest, daily?, type, numSeats, numReserved }
-const trains = [
-  {
-    number: 101,
-    name: "Mumbai Rajdhani Superfast",
-    source: "Mumbai CST",
-    dest: "Delhi Jn",
-    daily: true,
-    type: "Superfast",
-    numSeats: 876,
-    numReserved: 0,
-  },
-  {
-    number: 234,
-    name: "Mumbai Amritsar Golden Temple",
-    source: "Mumbai CST",
-    dest: "Amritsar Jn",
-    daily: false,
-    type: "Express",
-    numSeats: 1034,
-    numReserved: 0,
-  },
-  {
-    number: 345,
-    name: "Goa Nizamuddin Express",
-    source: "Madgaon",
-    dest: "Hazrat Nizamuddin",
-    daily: true,
-    type: "Express",
-    numSeats: 988,
-    numReserved: 0,
-  },
-];
+//Initial value of trains = an empty array
+let trains = [];
 
 //Object that stores the search information
 const searchInfo = {
   searchText: "",
 };
+
+//Try reading the trains info from the LocalStorage
+//If not found, we probably did not have any train
+//Else convert the stored trains into a JS array of
+//the train objects.
+const stringfiedTrains = localStorage.getItem("allTrains");
+if (stringfiedTrains !== null) {
+  trains = JSON.parse(stringfiedTrains);
+  console.log(`Got trains:`, trains);
+} else {
+  trains = [];
+  console.log(`No train in the localstorage`);
+}
 
 //Function to render the trains
 const renderTrains = function (trains) {
@@ -53,17 +34,24 @@ const renderTrains = function (trains) {
 
   anchorEl.textContent = "";
 
-  //Iterate through all the trains and create a <p> for each
-  trains.forEach(function (train) {
-    const trainInfo = `Train ${
-      train.number
-    }: ${train.name.toUpperCase()} from ${train.source} to ${train.dest}: ${
-      train.daily ? "Daily" : ""
-    } - ${train.type}`;
+  //If no trains, say so
+  if (trains.length === 0) {
     const pEl = document.createElement("p");
-    pEl.textContent = trainInfo;
+    pEl.textContent = "No trains found.";
     anchorEl.appendChild(pEl);
-  });
+  } else {
+    //Iterate through all the trains and create a <p> for each
+    trains.forEach(function (train) {
+      const trainInfo = `Train ${
+        train.number
+      }: ${train.name.toUpperCase()} from ${train.source} to ${train.dest}: ${
+        train.daily ? "Daily" : ""
+      } - ${train.type}`;
+      const pEl = document.createElement("p");
+      pEl.textContent = trainInfo;
+      anchorEl.appendChild(pEl);
+    });
+  }
 };
 
 const findTrains = function (trains, searchInfo) {
@@ -106,7 +94,11 @@ const findTrains = function (trains, searchInfo) {
 };
 
 const addTrain = function (newTrain) {
+  //Add a new train to the array
   trains.push(newTrain);
+  //Save the whole trains array to the LocalStorage
+  localStorage.setItem("allTrains", JSON.stringify(trains));
+  //Display all the trains
   renderTrains(trains);
 };
 
@@ -166,44 +158,3 @@ document.querySelector("#daily").addEventListener("change", function (e) {
 document.querySelector("#trainType").addEventListener("change", function (e) {
   //e.target.value
 });
-
-//////  Localstorage Demo ///////////
-
-//Simple K-V pairs
-//  K and V are both strings
-
-//set the key-value pair in LocalStorage
-//localStorage.setItem("train", "DQ");
-
-//const train = localStorage.getItem("train");
-//console.log(`read: ${train} from localstorage`);
-
-// localStorage.removeItem("train");
-// localStorage.clear();
-
-///Storing the whole objects
-//Because K and V are both string types,
-//how do we store whole objects into LocalStorage?
-//
-// Convert JS Object to a string - JSON.stringify(o)
-// Convert string back into JS object - JSON.parse()
-
-//a train object
-const train = {
-  number: 987,
-  name: "Deccan Queen",
-  source: "Pune",
-  dest: "Mumbai",
-  daily: "true",
-  type: "Superfast",
-};
-
-//Store into a localstorage
-//localStorage.setItem("train", JSON.stringify(train));
-
-//Get the object back
-const stringfiedTrain = localStorage.getItem("train");
-if (train !== null) {
-  const train = JSON.parse(stringfiedTrain);
-  console.log(`Read: `, train);
-}
