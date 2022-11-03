@@ -167,9 +167,43 @@ document.querySelector("#trainType").addEventListener("change", function (e) {
   //e.target.value
 });
 
-//Exercise
-// Inside the notes-app
-//  1. In index.html, add a checkbox (some dummy text) and a drop down (priority text)
-//  2. In scripts\app.js -
-//      - Access both the checkbox and drop down as separate fields (id -based )
-//      - Access both of them as form fields
+//////  Localstorage Demo ///////////
+
+//Simple K-V pairs
+//  K and V are both strings
+
+//set the key-value pair in LocalStorage
+//localStorage.setItem("train", "DQ");
+
+//const train = localStorage.getItem("train");
+//console.log(`read: ${train} from localstorage`);
+
+// localStorage.removeItem("train");
+// localStorage.clear();
+
+///Storing the whole objects
+//Because K and V are both string types,
+//how do we store whole objects into LocalStorage?
+//
+// Convert JS Object to a string - JSON.stringify(o)
+// Convert string back into JS object - JSON.parse()
+
+//a train object
+const train = {
+  number: 987,
+  name: "Deccan Queen",
+  source: "Pune",
+  dest: "Mumbai",
+  daily: "true",
+  type: "Superfast",
+};
+
+//Store into a localstorage
+//localStorage.setItem("train", JSON.stringify(train));
+
+//Get the object back
+const stringfiedTrain = localStorage.getItem("train");
+if (train !== null) {
+  const train = JSON.parse(stringfiedTrain);
+  console.log(`Read: `, train);
+}
