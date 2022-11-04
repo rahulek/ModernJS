@@ -26,6 +26,11 @@ const loadTrains = () => {
   return trains;
 };
 
+//Save the trains to the local storage
+const saveToLocalStorage = function (trains) {
+  localStorage.setItem(localStorageKey, JSON.stringify(trains));
+};
+
 //Generate a DOM structure for a given train
 //Refactoring this allows for us to later change
 //the DOM structure, if needed
@@ -61,6 +66,12 @@ const generateTrainDOM = function (train) {
     deleteButtonEl.textContent = "Delete";
     deleteButtonEl.addEventListener("click", function (e) {
       console.log(`Delete button clicked for ${train.name}`);
+      //Delete the train
+      deleteTrain(train);
+      //Save the updated trains to the local storage
+      saveToLocalStorage(trains);
+      //render againa
+      renderTrains(trains);
     });
 
     //Append <p> and 2 <buttons> to the DIV
@@ -196,7 +207,23 @@ const addTrain = function (newTrain) {
   //Add a new train to the array
   trains.push(newTrain);
   //Save the whole trains array to the LocalStorage
-  localStorage.setItem(localStorageKey, JSON.stringify(trains));
+  saveToLocalStorage(trains);
   //Display all the trains
   renderTrains(trains);
+};
+
+//Remove a train
+const deleteTrain = function (train) {
+  //Find a train index in the array
+  const trainIndex = trains.findIndex(function (trainEl) {
+    return trainEl.number === train.number;
+  });
+
+  //Did we find the train?
+  if (trainIndex !== -1) {
+    //train was found, remove it from the array
+    trains.splice(trainIndex, 1); //Remove 1 element at index "trainIndex"
+  }
+  //else the train was not found
+  //nothing much to do
 };
