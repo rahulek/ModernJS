@@ -10,6 +10,7 @@ document.querySelector("#search").addEventListener("input", function (e) {
   findTrains(allTrains, { searchText: e.target.value });
 });
 
+//Handle submitting the "Add New Train" form
 document
   .querySelector("#trainInfoForm")
   .addEventListener("submit", function (e) {
@@ -52,3 +53,8 @@ document
     e.target.elements.daily.checked = false;
     e.target.elements.trainType.value = "Superfast";
   });
+
+//Handle changing of the sort option
+document.querySelector("#sortBy").addEventListener("change", function (e) {
+  renderTrains(allTrains); //this will apply sorting change and then render
+});
