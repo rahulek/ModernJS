@@ -31,6 +31,7 @@ document
 
     //Create a new train object to insert into our trains db
     const newTrain = {
+      id: crypto.randomUUID(),
       number: trainNumber,
       name: trainName,
       source: trainSource,

@@ -95,7 +95,7 @@ const renderTrains = function (trains) {
   if (trains.length === 0) {
     //No trains found, get a DOM structure to represent it
     const trainDOM = generateTrainDOM(null);
-    anchorDivEl.appendChild(pEl);
+    anchorDivEl.appendChild(trainDOM);
   } else {
     //Iterate through all the trains and create a <p> for each
     trains.forEach(function (train) {
