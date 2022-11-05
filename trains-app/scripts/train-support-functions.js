@@ -58,6 +58,7 @@ const generateTrainDOM = function (train) {
     editButtonEl.textContent = "Edit";
     editButtonEl.addEventListener("click", function (e) {
       console.log(`Edit button clicked for ${train.name}`);
+      location.href = `/edittrain.html#${train.id}`;
     });
     editButtonEl.setAttribute("style", "margin: 0 10px");
 
@@ -226,4 +227,17 @@ const deleteTrain = function (train) {
   }
   //else the train was not found
   //nothing much to do
+};
+
+//Get a train given its id
+const getTrain = function (trainId) {
+  const trainIndex = trains.findIndex(function (train) {
+    return train.id === trainId;
+  });
+
+  if (trainIndex !== -1) {
+    return trains[trainIndex];
+  }
+
+  return null;
 };
