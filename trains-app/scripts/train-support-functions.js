@@ -241,3 +241,19 @@ const getTrain = function (trainId) {
 
   return null;
 };
+
+const updateTrain = function (trainId, trainToUpdate) {
+  //find the given train first
+  //delete it
+  //add a new train with the modified information, train.id
+  //*assumed* to be unchanged
+
+  console.log(`Updating: ${trainId}`);
+  const trainToDelete = getTrain(trainId);
+  console.log(`will be deleting: `, trainToDelete);
+  deleteTrain(trainToDelete);
+  console.log(`now adding the train: `, trainToUpdate);
+  trains.push(trainToUpdate);
+  //Save the whole trains array to the LocalStorage
+  saveToLocalStorage(trains);
+};

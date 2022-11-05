@@ -36,7 +36,6 @@ document
       name: trainName,
       source: trainSource,
       dest: trainDest,
-      //Following fields with default values
       daily: trainDaily,
       type: trainType,
       numSeats: 876,

@@ -5,6 +5,41 @@
     </head>
     <body>
         <h1 id="title">This is an edit train page...</h1>
+        <div id="edittrain">
+            <form id="trainInfoForm">
+                <h4>Modify the Train Information...</h4>
+                <div>
+                    <label>
+                        Number: <input type="number" min="1" max="5000" name="trainNumber">
+                    </label>
+                    <label>
+                        Name: <input type="text" name="trainName">
+                    </label>
+                    <label>
+                        Daily: <input type="checkbox" name="trainDaily" id="daily">
+                    </label>
+                </div>
+                <br />
+                <div>
+                    <label>
+                        Source: <input type="text" name="trainSource">
+                    </label>
+                    <label>
+                        Destination: <input type="text" name="trainDest">
+                    </label>
+                    <label>
+                        Type: <select name="trainType" id="trainType">
+                            <Option value="Superfast">Super Fast</Option>
+                            <Option value="Express">Express</Option>
+                            <Option value="Slow">Slow</Option>
+                            <Option value="Cargo">Cargo</Option>
+                        </select>
+                    </label>
+                </div>
+                <br />
+                <button type="submit">Save Train</button>
+            </form>
+         </div>
 
         <script src="scripts/train-support-functions.js"></script>
         <script src="scripts/edittrain.js"></script>
